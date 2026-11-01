@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class TicketService {
@@ -26,5 +28,10 @@ public class TicketService {
     public List<Ticket> listAllTickets(){
         List<Ticket>ticketList=ticketRepository.findAll();
         return ticketList;
+    }
+
+    public Optional<Ticket> findTicketById(UUID id)
+    {
+        return ticketRepository.findById(id);
     }
 }

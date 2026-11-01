@@ -15,7 +15,6 @@ public class TicketMapper {
     public TicketResponseDTO toResponse(Ticket ticket){
         return new TicketResponseDTO(ticket.getId(),ticket.getTitle(),ticket.getDescription(),
                 ticket.getStatus(),ticket.getPriority(),ticket.getCreatedAt());
-
     }
 
 }

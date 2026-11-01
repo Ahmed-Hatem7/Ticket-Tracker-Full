@@ -8,10 +8,13 @@ import com.example.demo.services.CreateTicketRequest;
 import com.example.demo.services.TicketService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/tickets")
@@ -43,6 +46,28 @@ public class TicketController {
             DTOlist.add(ticketMapper.toResponse(ticket));
         }
         return DTOlist;
+    }
+
+    @GetMapping("/{id}")
+
+    public ResponseEntity<TicketResponseDTO> getTicket(@PathVariable UUID id) {
+
+        return ticketService.findTicketById(id)
+                .map(ticketMapper::toResponse)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+        /*Optional<Ticket> ticketOptional=ticketService.findTicketById(id);
+
+        if(ticketOptional.isPresent()){
+            TicketResponseDTO ticketResponseDTO=ticketMapper.toResponse(ticketOptional.get());
+            return new ResponseEntity<>(ticketResponseDTO,HttpStatus.OK);
+        }
+        else
+        {
+            return ResponseEntity.notFound().build();
+        }
+
+         */
 
 
     }
