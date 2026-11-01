@@ -8,10 +8,10 @@ import com.example.demo.services.CreateTicketRequest;
 import com.example.demo.services.TicketService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/tickets")
@@ -33,6 +33,18 @@ public class TicketController {
         TicketResponseDTO ticketCreated=ticketMapper.toResponse(ticket);
 
         return new ResponseEntity<>(ticketCreated, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public List<TicketResponseDTO> lisTickets(){
+        List<Ticket> tickets=ticketService.listAllTickets();
+        List<TicketResponseDTO>DTOlist=new ArrayList<>();
+        for ( Ticket ticket : tickets){
+            DTOlist.add(ticketMapper.toResponse(ticket));
+        }
+        return DTOlist;
+
+
     }
 
 }

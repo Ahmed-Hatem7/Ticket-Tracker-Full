@@ -5,6 +5,9 @@ import com.example.demo.domain.Entities.TicketStatus;
 import com.example.demo.repository.TicketRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class TicketService {
     private final TicketRepository ticketRepository;
@@ -18,5 +21,10 @@ public class TicketService {
 
         return ticketRepository.save(ticket);
 
+    }
+
+    public List<Ticket> listAllTickets(){
+        List<Ticket>ticketList=ticketRepository.findAll();
+        return ticketList;
     }
 }
