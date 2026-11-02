@@ -7,6 +7,7 @@ import com.example.demo.domain.Entities.Ticket;
 import com.example.demo.mapper.TicketMapper;
 import com.example.demo.services.CreateTicketRequest;
 import com.example.demo.services.TicketService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
@@ -30,7 +31,7 @@ public class TicketController {
 
     }
     @PostMapping
-    public ResponseEntity<TicketResponseDTO> createTicket(@RequestBody CreateTicketRequestDTO createTicketRequestDTO){
+    public ResponseEntity<TicketResponseDTO> createTicket(@Valid @RequestBody CreateTicketRequestDTO createTicketRequestDTO){
 
         CreateTicketRequest createTicketRequest=ticketMapper.toServiceRequest(createTicketRequestDTO);
         Ticket ticket=ticketService.createTicket(createTicketRequest);
