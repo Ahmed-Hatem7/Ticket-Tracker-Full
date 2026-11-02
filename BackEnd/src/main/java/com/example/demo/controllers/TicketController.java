@@ -81,6 +81,17 @@ public class TicketController {
                 .orElse(ResponseEntity.notFound().build());
 
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTicket(@PathVariable UUID id)
+    {
+        if(ticketService.deleteTicket(id)){
+            return ResponseEntity.noContent().build();
+
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 
 

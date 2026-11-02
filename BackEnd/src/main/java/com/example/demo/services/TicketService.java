@@ -50,6 +50,18 @@ public class TicketService {
 
     }
 
+    public boolean deleteTicket(UUID id)
+    {
+       if(ticketRepository.existsById(id))
+       {
+           ticketRepository.deleteById(id);
+           return true;
+       }
+       else {
+           return false;
+       }
+    }
+
 
     }
 
