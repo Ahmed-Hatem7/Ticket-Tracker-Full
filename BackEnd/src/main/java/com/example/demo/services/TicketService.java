@@ -34,4 +34,24 @@ public class TicketService {
     {
         return ticketRepository.findById(id);
     }
-}
+
+
+    public Optional<Ticket> updateTicket(UUID id, UpdateTicketRequest updateTicketRequest) {
+
+        return ticketRepository.findById(id).
+                map(foundTicket->{
+                    foundTicket.setTitle(updateTicketRequest.title());
+                    foundTicket.setDescription(updateTicketRequest.description());
+                    foundTicket.setStatus(updateTicketRequest.status());
+                    foundTicket.setPriority(updateTicketRequest.priority());
+                    return ticketRepository.save(foundTicket);
+
+                });
+
+    }
+
+
+    }
+
+
+

@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.domain.DTO.CreateTicketRequestDTO;
 import com.example.demo.domain.DTO.TicketResponseDTO;
+import com.example.demo.domain.DTO.UpdateTicketRequestDTO;
 import com.example.demo.domain.Entities.Ticket;
 import com.example.demo.mapper.TicketMapper;
 import com.example.demo.services.CreateTicketRequest;
@@ -56,7 +57,10 @@ public class TicketController {
                 .map(ticketMapper::toResponse)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
-        /*Optional<Ticket> ticketOptional=ticketService.findTicketById(id);
+    }
+
+        /* Another way to do it
+        Optional<Ticket> ticketOptional=ticketService.findTicketById(id);
 
         if(ticketOptional.isPresent()){
             TicketResponseDTO ticketResponseDTO=ticketMapper.toResponse(ticketOptional.get());
@@ -66,11 +70,20 @@ public class TicketController {
         {
             return ResponseEntity.notFound().build();
         }
-
          */
 
+    @PutMapping("/{id}")
+    public ResponseEntity<TicketResponseDTO>updateTicket(@PathVariable UUID id, @RequestBody UpdateTicketRequestDTO updateTicketRequestDTO)
+    {
+        Optional<Ticket> ticket=ticketService.updateTicket(id,ticketMapper.toServiceUpdateRequest(updateTicketRequestDTO));
+        return ticket.map(ticketMapper::toResponse)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
 
     }
+
+
+
 
 }
 
